@@ -1,0 +1,6 @@
+@import './reset.css';
+@import './themes/light.css'
+
+* {
+    box-sizing: border-box;
+}
