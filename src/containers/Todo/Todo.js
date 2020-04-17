@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '../../components/Buttons/Button';
 import styles from './styles.module.css';
-import Input from '../../components/Input/Input'
 
 export default class Todo extends React.PureComponent {
     constructor(props){
@@ -9,33 +8,44 @@ export default class Todo extends React.PureComponent {
 
         this.state = {
             listTodos: [],
+            text:","
         }
     }
 
-    setTdodoItem = (text) =>{
-        this.newitem = text;
-
-        console.log()
-    }
+    // setTdodoItem = (text) =>{
+    //     this.newitem = text;
+    // }
     
     onSubmit = ()=>{
         this.setState((prevState)=>({
-            listTodos: [...prevState.listTodos,this.newitem],
+            listTodos: [...prevState.listTodos,this.state.text],
         }),
         ()=>{
-            console.log(this.state.listTodos)
+            this.reset();
+            this.newitem = "";
+
         }
         );
 
-        this.newitem = ""
+        
     }
     
+    handleChange = (event) =>{
+        this.setState({
+            text: event.target.value
+        })
+    };
+
+    reset=()=>{
+        this.setState({text: ""});
+    }
+
     render(){
         return(
             <div className={styles.container}>
             <h1 className={styles.title}>Todo Application</h1>
             <div style={{display:'flex'}}>
-            <Input onChange={this.setTdodoItem} ref={(ref)=> {this.input = ref}}/>
+            <input onChange={this.handleChange} value = {this.state.text} />
             <Button label="Add" onClick={this.onSubmit}/>
             </div>
             
